@@ -1,0 +1,27 @@
+<div class="post card mb-3 d-flex flex-column justify-content-between">
+  <h2 class="post-title mt-3">{{post.title}}</h2>
+  <div class="card-body text-center d-flex align-items-center justify-content-center" style="flex-grow: 1;">
+    <p class="card-text mb-10">{{post.content}}</p>
+  </div>
+  <div class="text-right mb-3">
+    <p class="post-user mb-0">By: {{post.user.username}}</p>
+    <p class="post-date mb-0">Created on {{post.date_created}}</p>
+  </div>
+</div>
+
+<div class="comments" data-post-id="{{post.id}}">
+ {{#each post.Comments}}
+  <div class="comment">
+    <p>{{this.User.username}} commented:</p>
+    <h4>{{this.comment_text}}</h4> <!-- Updated reference to comment_text -->
+    <p>Posted on {{this.com_date_created}}</p> <!-- Make sure this attribute exists in your comments model -->
+  </div>
+{{/each}}
+</div>
+{{#if logged_in}}
+<form action="/api/comments" method="post">
+    <input type="hidden" name="post_id" value="{{post.id}}">
+    <textarea name="comment_text" required></textarea>
+    <button type="submit">Submit Comment</button>
+</form>
+{{/if}}

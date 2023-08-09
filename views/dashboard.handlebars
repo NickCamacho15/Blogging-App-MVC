@@ -1,0 +1,50 @@
+{{#each posts}}
+<div class="post card mb-3 position-relative">
+  <h1 class="post-title">{{title}}</h1>
+  <div class="card-body text-center">
+    <h3 class="card-text">{{content}}</h3>
+  </div>
+  <button class="edit-post btn btn-success position-absolute" data-id="{{id}}" style="top: 10px; right: 80px;">Edit</button>
+  <button class="delete-post btn btn-danger position-absolute" data-id="{{id}}" style="top: 10px; right: 10px;">Delete</button>
+  <p class="post-date mb-0 position-absolute" style="bottom: 20px; left: 10px;">Created on {{date_created}}</p>
+  <p class="post-user mb-0 position-absolute" style="bottom: 10px; left: 10px;">By: {{user.username}}</p>
+  <a href="/post/{{id}}" class="btn btn-primary view-comment-btn">View & Comment</a>
+</div>
+{{/each}}
+
+
+
+<form id="create-post-form" style="display: none;" action="/api/posts" method="post">
+  <input type="text" name="title" placeholder="Title" required>
+  <textarea name="content" placeholder="Content" required></textarea>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  document.getElementById('create-post-btn').addEventListener('click', () => {
+    document.getElementById('create-post-form').style.display = 'block';
+  });
+
+  document.querySelectorAll('.delete-post').forEach((button) => {
+  button.addEventListener('click', async (e) => {
+    const postId = e.target.getAttribute('data-id');
+    try {
+      const response = await fetch(`/api/posts/${postId}`, { method: 'DELETE' });
+      if (response.ok) {
+        window.location.reload(); 
+      } else {
+        alert('Failed to delete post.');
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  });
+});
+document.querySelectorAll('.edit-post').forEach((button) => {
+  button.addEventListener('click', (e) => {
+    const postId = e.target.getAttribute('data-id');
+    window.location.href = `/post/edit/${postId}`;
+  });
+});
+
+</script>

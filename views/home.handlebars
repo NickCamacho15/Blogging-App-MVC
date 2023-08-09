@@ -1,0 +1,14 @@
+<!-- home.handlebars -->
+<div class="posts">
+ {{#each posts}}
+<div class="post card mb-3 position-relative">
+  <h1 class="post-title">{{title}}</h1>
+  <div class="card-body text-center">
+    <h3 class="card-text">{{content}}</h3>
+  </div>
+  <p class="post-date mb-0 position-absolute" style="bottom: 20px; left: 10px;">Created on {{date_created}}</p>
+  <p class="post-user mb-0 position-absolute" style="bottom: 10px; left: 10px;">By: {{user.username}}</p>
+  <a href="/post/{{id}}" class="btn btn-primary view-comment-btn">View & Comment</a>
+</div>
+{{/each}}
+</div>

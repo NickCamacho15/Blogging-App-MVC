@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+  <header>
+    <nav>
+        {{#if isDashboard}}
+        <button id="create-post-btn">Create New Post</button>
+        {{/if}}
+        {{#if isHome}}
+        <div class="header-center">My Feed</div>
+        {{/if}}
+        {{#if isDashboard}}
+        <div class="header-center">My Posts</div>
+        {{/if}}
+        <div class="nav-links">
+            <a href="/">Home</a>
+            {{#if logged_in}}
+            <a href="/dashboard">Dashboard</a>
+            <a href="/logout">Logout</a>
+            {{else}}
+            {{#unless isLandingPage}}
+            <a href="/login">Login</a>
+            <a href="/signup">Sign Up</a>
+            {{/unless}}
+            {{/if}}
+        </div>
+    </nav>
+</header>
+
+    <main class="container">
+        {{{body}}}
+    </main>
+    <script src="/js/main.js"></script>
+</body>
+</html>
+
